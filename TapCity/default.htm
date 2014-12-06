@@ -11,6 +11,7 @@
         var engine = new TapCityEngine();
         function initEngine() {
             document.getElementById("oreclick").addEventListener("click", ui_clickOre);
+            document.getElementById("foodclick").addEventListener("click", ui_clickFood);
 
             ui_gameLoop();
         }
@@ -20,12 +21,18 @@
             engine.clickOre();
         }
 
+        function ui_clickFood(evt) {
+            // Sounds, UI
+            engine.clickFood();
+        }
+
         function ui_gameLoop() {
             // Advance the game loop
             engine.tick();
 
             // Update the UI
             document.getElementById("oreticker").innerText = engine.resources.ore;
+            document.getElementById("foodticker").innerText = engine.resources.food;
 
             // 30 FPS
             window.setTimeout(ui_gameLoop, 1000 / 30);
@@ -35,5 +42,10 @@
 <body onload="initEngine();">
     <img id="oreclick" src="images/ore.svg" width="200" height="200">
     <div id="oreticker"></div>
+
+    <img id="foodclick" src="images/meat.svg" width="200" height="200">
+    <div id="foodticker"></div>
+
+    <img id="townclick" src="images/materials.svg" width="200" height="200">
 </body>
 </html>
