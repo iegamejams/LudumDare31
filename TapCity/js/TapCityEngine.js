@@ -13,15 +13,15 @@ function TapCityEngine() {
             writable: false
         }
     });
-
-    this.GetElapsedTime = function () {
-        var currentTime = new Date();
-        return currentTime - this.startTime;
-    };
 }
 
 TapCityEngine.prototype = Object.create(Object.prototype);
 
 Object.defineProperties(TapCityEngine.prototype, {
-
+    getElapsedTime: {
+        value: function getElapsedTime() {
+            var currentTime = new Date();
+            return currentTime - this.startTime;
+        }
+    }
 })
