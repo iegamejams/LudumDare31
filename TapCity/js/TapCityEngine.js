@@ -54,18 +54,30 @@ Object.defineProperties(TapCityEngine.prototype, {
             this.resources.addFood(1);
         }
     },
+    clickTown: {
+        value: function clickTown() {
+            /* TODO: Clicking the town applies build points to the current level */
+            /*
+            this.town <-- Contains the upgrades for it.
+            this.town.manualBuild();
+            */
+        }
+    },
     tick: {
         value: function tick() {
             /* TODO: If units/upgrades have changed recompute orePerSecond/foodPerSecond */
             this.resources.addOre(this.orePerSecond / this.ticksPerSecond);
             this.resources.addFood(this.foodPerSecond / this.ticksPerSecond);
 
+            var warriorEffectiveness = 1.0;
             var foodConsumed = -(this.foodConsumedPerSecond / this.ticksPerSecond);
             if (foodConsumed > this.resources.food) {
                 foodConsumed = this.resources.food;
-                /* TODO: Warriors are rioting due to lack of food, halve effectiveness */
+                warriorEffectiveness = 0.5;
             }
             this.resources.addFood(foodConsumed);
+
+            /* TODO: Grab the monster and apply warrior damage, using warriorEffectiveness */
         }
     }
 })
