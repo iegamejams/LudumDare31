@@ -13,14 +13,29 @@
                 testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
             }
         }
+        function testInstanceOf(value, constructor, message) {
+            if (!(value instanceof constructor)) {
+                testFailures.push(message + ": Actual " + Object.getPrototypeOf(value).constructor + " !== Expected " + constructor)
+            }
+        }
 
         function testUnitManager(manager) {
+            testInstanceOf(manager, UnitManager, "The manager should be a UnitManager");
+
+            testUnitList(manager.farmers);
+            testUnitList(manager.warriors);
+            testUnitList(manager.miners);
         }
 
         function testUnitList(list) {
+            testInstanceOf(list, UnitList, "Unit lists should be of type UnitList.");
+            testCondition(list.units.length, 4, "We should have initialized 4 unit levels.");
+
+            testUnit(list.units[0]);
         }
 
         function testUnit(unit) {
+            testInstanceOf(unit, Unit, "A unit in a unit list should be of type Unit.");
         }
 
         function runTests(callback) {

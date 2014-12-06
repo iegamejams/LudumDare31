@@ -18,6 +18,7 @@ Object.defineProperties(UnitList, {
 
             Object.seal(unitList.units);
             Object.seal(unitList);
+            return unitList;
         }
     }
 });
