@@ -22,7 +22,7 @@ function TapCityEngine() {
     };
 }
 
-TapCityEngine.prototype = Object.create();
+TapCityEngine.prototype = Object.create(Object.prototype);
 
 Object.defineProperties(TapCityEngine.prototype, {
 
