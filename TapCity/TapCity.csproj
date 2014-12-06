@@ -74,9 +74,11 @@
   <ItemGroup>
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
+    <Content Include="js\MonsterManager.js" />
     <Content Include="js\TapCityEngine.js" />
     <Content Include="js\ResourceManager.js" />
     <Content Include="tests\harness.htm" />
+    <Content Include="tests\MonsterManager.htm" />
     <Content Include="tests\ResourceManager.htm" />
     <Content Include="tests\TapCityEngine.htm" />
     <Content Include="Web.config" />

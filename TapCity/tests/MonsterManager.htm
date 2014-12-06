@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="../js/MonsterManager.js"></script>
+    <script>
+        "use strict";
+
+        var testFailures = [];
+
+        function testCondition(value, expected, message) {
+            if (value !== expected) {
+                testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
+            }
+        }
+
+        function runTests(callback) {
+            try {
+                var monsterManager = new MonsterManager();
+                monsterManager.cityLevelToStartAt = 2;
+                monsterManager.monsterAttackChance = 1;
+                monsterManager.monsterAttackTimeForewarning = 30000;
+                monsterManager.monsterGenerationInterval = 60000;
+
+                monsterManager.update(1, 60000);
+
+                testCondition(monsterManager.lastUpdatedTime, 0, "MonsterManager.LastUpdatedTime is being updated when the city is too low a level!");
+
+                monsterManager.update(2, 60000);
+
+                testCondition(monsterManager.lastUpdatedTime, 60000, "MonsterManager.LastUpdatedTime is not updated when the target level is hit!");
+
+                monsterManager.lastUpdatedTime = 0;
+                monsterManager.update(3, 60000);
+
+                testCondition(monsterManager.lastUpdatedTime, 60000, "MonsterManager.LastUpdatedTime is not updated when the target level is higher!");
+
+                monsterManager.update(2, 119999);
+                testCondition(monsterManager.lastUpdatedTime, 60000, "MonsterManager.LastUpdatedTime should not update from 60000 before monsterGenerationInterval is hit!");
+
+                monsterManager.update(2, 120000);
+                testCondition(monsterManager.lastUpdatedTime, 120000, "MonsterManager.LastUpdatedTime doesn't update on exactly the update time!");
+
+                monsterManager.lastUpdatedTime = 60000;
+                monsterManager.update(2, 120001);
+                testCondition(monsterManager.lastUpdatedTime, 120001, "MonsterManager.LastUpdatedTime doesn't update when given a number above the update interval!");
+
+            }
+            catch (err) {
+                document.testFailures = "Exception Caught: " + err.message;
+                document.testPassed = false;
+                return callback;
+            }
+
+            if (testFailures.length === 0) {
+                document.testPassed = true;
+            }
+
+            return callback;
+        }
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
