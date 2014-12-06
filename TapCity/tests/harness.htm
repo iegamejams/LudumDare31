@@ -29,7 +29,7 @@
                 }
                 else {
                     evt.target.testStatus.className = "testStatusItem testStatusFailed";
-                    evt.target.testStatus.innerText = JSON.stringify(evt.target.contentDocument.testFailures);
+                    evt.target.testStatus.innerText = JSON.stringify(evt.target.contentDocument.defaultView.testFailures);
                     testsFailed++;
                 }
                 testsCompleted++;

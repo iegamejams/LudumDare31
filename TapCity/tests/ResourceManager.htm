@@ -5,9 +5,68 @@
     <script src="../js/ResourceManager.js"></script>
     <script>
         "use strict";
+        var testFailures = [];
+        function testCondition(value, expected, message) {
+            if (value !== expected) {
+                testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
+            }
+        }
+
+        function testOre(rm) {
+            var oldFood = rm.food;
+            rm.addOre(100);
+            rm.addOre(50);
+            testCondition(rm.ore, 150, "addOre");
+
+            rm.addResource("ore", 30);
+            testCondition(rm.ore, 180, "addResource 'ore'");
+
+            try {
+                rm.addOre(-200);
+                testCondition(true, false, "addOre should throw when out of bounds")
+            }
+            catch (exc) { }
+
+            try {
+                rm.addResource(-200);
+                testCondition(true, false, "addResource 'ore' should throw when out of bounds")
+            }
+            catch (exc) { }
+            testCondition(rm.food, oldFood, "Ore increased food budget.");
+        }
+
+        function testFood(rm) {
+            var oldOre = rm.ore;
+            rm.addFood(100);
+            rm.addFood(50);
+            testCondition(rm.food, 150, "addFood");
+
+            rm.addResource("food", 30);
+            testCondition(rm.food, 180, "addResource 'food'");
+
+            try {
+                rm.addFood(-200);
+                testCondition(true, false, "addFood should throw when out of bounds")
+            }
+            catch (exc) { }
+
+            try {
+                rm.addResource(-200);
+                testCondition(true, false, "addResource 'food' should throw when out of bounds")
+            }
+            catch (exc) { }
+            testCondition(rm.ore, oldOre, "Food increased food budget.");
+        }
+
         function runTests(callback) {
+            var rm = new ResourceManager();
+            testOre(rm);
+            testFood(rm);
+
             // Flag synchronous completion
-            document.testPassed = true;
+            if (testFailures.length === 0) {
+                document.testPassed = true;
+            }
             return callback;
         }
     </script>
