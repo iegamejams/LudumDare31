@@ -16,14 +16,15 @@
         var testPages = [
             "ResourceManager.htm",
             "TapCityEngine.htm",
-            "MonsterManager.htm"
+            "MonsterManager.htm",
+            "UnitManager.htm",
         ];
         var testsCompleted = 0;
         var testsPassed = 0;
         var testsFailed = 0;
 
         function validateTest(evt) {
-            var sync = evt.target.contentDocument.defaultView.runTests(function () {
+            var callback = function _callback() {
                 if (evt.target.contentDocument.testPassed === true) {
                     evt.target.testStatus.className = "testStatusItem testStatusPassed";
                     testsPassed++;
@@ -45,7 +46,16 @@
                         finalOutput.innerHTML += " Please review the failing cases.";
                     }
                 }
-            });
+            };
+            var sync = null;
+
+            try {
+                sync = evt.target.contentDocument.defaultView.runTests(callback);
+            } 
+            catch (exc) {
+                callback();
+            }
+
             if (sync !== null) {
                 sync();
             }

@@ -74,16 +74,21 @@
   <ItemGroup>
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
+    <Content Include="js\Math.js" />
     <Content Include="images\materials.svg" />
     <Content Include="images\meat.svg" />
     <Content Include="js\MonsterManager.js" />
     <Content Include="images\ore.svg" />
     <Content Include="js\TapCityEngine.js" />
     <Content Include="js\ResourceManager.js" />
+    <Content Include="js\Unit.js" />
+    <Content Include="js\UnitList.js" />
+    <Content Include="js\UnitManager.js" />
     <Content Include="tests\harness.htm" />
     <Content Include="tests\MonsterManager.htm" />
     <Content Include="tests\ResourceManager.htm" />
     <Content Include="tests\TapCityEngine.htm" />
+    <Content Include="tests\UnitManager.htm" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
