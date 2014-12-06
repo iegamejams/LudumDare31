@@ -74,6 +74,8 @@
   <ItemGroup>
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
+    <Content Include="images\materials.svg" />
+    <Content Include="images\meat.svg" />
     <Content Include="js\MonsterManager.js" />
     <Content Include="images\ore.svg" />
     <Content Include="js\TapCityEngine.js" />
