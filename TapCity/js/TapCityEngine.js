@@ -6,9 +6,7 @@ function TapCityEngine() {
             value: new ResourceManager(),
             configurable: false,
             writable: false
-        }
-    },
-    {
+        },
         'startTime': {
             value: new Date(),
             configurable: false,
