@@ -9,6 +9,38 @@
 
         function runTests(callback) {
             // Flag synchronous completion
+
+            try
+            {
+                var engine = new TapCityEngine();
+
+                var time = engine.GetElapsedTime();
+
+                if (time == null) {
+                    document.testFailures = "Get Elapsed Time returns Null!";
+                    document.testPassed = false;
+                    return callback;
+                }
+                if (isNaN(time))
+                {
+                    document.testFailures = "Get Elapsed Time returns Not a Number!";
+                    document.testPassed = false;
+                    return callback;
+                }
+                if (time <= 0)
+                {
+                    document.testFailures = "Get Elapsed Time should always be a positive Number.  Actual: " + time;
+                    document.testPassed = false;
+                    return callback;
+                }
+            }
+            catch(err)
+            {
+                document.testFailures = "Exception Caught: " + err.message;
+                document.testPassed = false;
+                return callback;
+            }
+
             document.testPassed = true;
             return callback;
         }
