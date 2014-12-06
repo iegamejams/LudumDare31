@@ -23,5 +23,15 @@ Object.defineProperties(TapCityEngine.prototype, {
             var currentTime = new Date();
             return currentTime - this.startTime;
         }
+    },
+    clickOre: {
+        value: function clickOre() {
+            this.resources.addOre(1);
+        },
+    },
+    clickFood: {
+        value: function clickFood() {
+            this.resources.addFood(1);
+        }
     }
 })

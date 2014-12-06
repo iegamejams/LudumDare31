@@ -7,41 +7,54 @@
     <script>
         "use strict";
 
+        var testFailures = [];
+        function testCondition(value, expected, message) {
+            if (value !== expected) {
+                testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
+            }
+        }
+
+        function testTime(engine) {
+            var time = engine.getElapsedTime();
+
+            if (time == null) {
+                testFailures.push("Get Elapsed Time returns Null!");
+            }
+            if (isNaN(time)) {
+                testFailures.push("Get Elapsed Time returns Not a Number!");
+            }
+            if (time < 0) {
+                testFailures.push("Get Elapsed Time should always be a positive Number or 0 if no time has elapsed.  Actual: " + time);
+            }
+        }
+
+        function testBasicClicks(engine) {
+            engine.clickOre();
+            testCondition(engine.resources.ore, 1, "Clicking ore should increase by 1.");
+
+            engine.clickOre();
+            testCondition(engine.resources.ore, 2, "Ore clicking should work more than once.");
+
+            engine.clickFood();
+            testCondition(engine.resources.food, 1, "Clicking food should increase by 1.");
+
+            engine.clickFood();
+            testCondition(engine.resources.food, 2, "Food clicking should work more than once.");
+        }
+
         function runTests(callback) {
-            // Flag synchronous completion
-
-            try
-            {
+            try {
                 var engine = new TapCityEngine();
-
-                var time = engine.getElapsedTime();
-
-                if (time == null) {
-                    document.testFailures = "Get Elapsed Time returns Null!";
-                    document.testPassed = false;
-                    return callback;
-                }
-                if (isNaN(time))
-                {
-                    document.testFailures = "Get Elapsed Time returns Not a Number!";
-                    document.testPassed = false;
-                    return callback;
-                }
-                if (time <= 0)
-                {
-                    document.testFailures = "Get Elapsed Time should always be a positive Number.  Actual: " + time;
-                    document.testPassed = false;
-                    return callback;
-                }
+                testTime(engine);
+                testBasicClicks(engine);
             }
-            catch(err)
-            {
-                document.testFailures = "Exception Caught: " + err.message;
-                document.testPassed = false;
-                return callback;
+            catch (exc) {
+                testFailures.push("Exception Caught: " + exc.message + ": Stack " + exc.stack);
             }
 
-            document.testPassed = true;
+            if (testFailures.length === 0) {
+                document.testPassed = true;
+            }
             return callback;
         }
     </script>
