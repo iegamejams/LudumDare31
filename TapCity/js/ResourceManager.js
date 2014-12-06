@@ -6,7 +6,7 @@ function ResourceManager() {
     });
 }
 
-ResourceManager.prototype = Object.create();
+ResourceManager.prototype = Object.create(Object.prototype);
 
 Object.defineProperties(ResourceManager.prototype, {
 

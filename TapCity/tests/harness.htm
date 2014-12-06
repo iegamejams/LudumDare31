@@ -2,6 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <style>
+        #testHost { display: none; }
+        #testCompletion { display: none; }
+        #testCompletion.testStatusItem { display: block; }
+        .testStatusItem { border: 1px solid brown; background-color: beige; padding: 5px; margin-top: 2px; margin-bottom: 3px;}
+        .testStatusItem.testStatusFailed { border: 1px solid brown; background-color: lightcoral; }
+        .testStatusItem.testStatusPassed { border: 1px solid brown; background-color: lightgreen; }
+    </style>
     <script>
         "use strict";
 
@@ -9,18 +17,69 @@
             "ResourceManager.htm",
             "TapCityEngine.htm"
         ];
+        var testsCompleted = 0;
+        var testsPassed = 0;
+        var testsFailed = 0;
+
+        function validateTest(evt) {
+            var sync = evt.target.contentDocument.defaultView.runTests(function () {
+                if (evt.target.contentDocument.testPassed === true) {
+                    evt.target.testStatus.className = "testStatusItem testStatusPassed";
+                    testsPassed++;
+                }
+                else {
+                    evt.target.testStatus.className = "testStatusItem testStatusFailed";
+                    evt.target.testStatus.innerText = JSON.stringify(evt.target.contentDocument.testFailures);
+                    testsFailed++;
+                }
+                testsCompleted++;
+                if (testsCompleted === testPages.length) {
+                    var finalOutput = document.getElementById("testCompletion");
+                    finalOutput.innerHTML = testsPassed + "/" + testsCompleted + " tests have passed.";
+                    if (testsPassed === testsCompleted) {
+                        finalOutput.className = "testStatusItem testStatusPassed";
+                    }
+                    else {
+                        finalOutput.className = "testStatusItem testStatusFailed";
+                        finalOutput.innerHTML += " Please review the failing cases.";
+                    }
+                }
+            });
+            if (sync !== null) {
+                sync();
+            }
+        }
 
         function runTests() {
             var testHost = document.getElementById("testHost");
-            testPages.forEach(function (testPage) {
+            var testOutput = document.getElementById("testOutput");
 
+            // Add iframes for each test
+            testPages.forEach(function (testPage) {
+                var testFrame = document.createElement("iframe");
+                testFrame.addEventListener("load", validateTest);
+                testFrame.testSrc = testPage;
+                testHost.appendChild(testFrame);
+
+                var testStatus = document.createElement("div");
+                testStatus.className = "testStatusItem";
+                testStatus.innerHTML = "&nbsp;";
+                testFrame.testStatus = testStatus;
+                testOutput.appendChild(testStatus);
             }, this);
+
+            var currentTest = testHost.firstElementChild;
+            while (currentTest !== null) {
+                currentTest.src = currentTest.testSrc;
+                currentTest.testStatus.className = "testStatusItem testStatusRunning";
+                currentTest = currentTest.nextElementSibling;
+            }
         }
     </script>
 </head>
-<body>
-    <div id="testHost">
-
-    </div>
+<body onload="runTests()">
+    <div id="testCompletion"></div>
+    <div id="testOutput"></div>
+    <div id="testHost"></div>
 </body>
 </html>
