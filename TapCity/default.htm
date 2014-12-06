@@ -4,7 +4,36 @@
     <title>Tap City</title>
     <script src="js/ResourceManager.js"></script>
     <script src="js/TapCityEngine.js"></script>
+
+    <script>
+        "use strict";
+
+        var engine = new TapCityEngine();
+        function initEngine() {
+            document.getElementById("oreclick").addEventListener("click", ui_clickOre);
+
+            ui_gameLoop();
+        }
+
+        function ui_clickOre(evt) {
+            // Sounds, UI
+            engine.clickOre();
+        }
+
+        function ui_gameLoop() {
+            // Advance the game loop
+            engine.tick();
+
+            // Update the UI
+            document.getElementById("oreticker").innerText = engine.resources.ore;
+
+            // 30 FPS
+            window.setTimeout(ui_gameLoop, 1000 / 30);
+        }
+    </script>
 </head>
-<body>
+<body onload="initEngine();">
+    <img id="oreclick" src="images/ore.svg" width="200" height="200">
+    <div id="oreticker"></div>
 </body>
 </html>
