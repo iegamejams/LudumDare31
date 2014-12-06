@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../js/Unit.js"></script>
+    <script src="../js/UnitList.js"></script>
+    <script src="../js/UnitManager.js"></script>
+    <script>
+        "use strict";
+        var testFailures = [];
+        function testCondition(value, expected, message) {
+            if (value !== expected) {
+                testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
+            }
+        }
+
+        function testUnitManager(manager) {
+        }
+
+        function testUnitList(list) {
+        }
+
+        function testUnit(unit) {
+        }
+
+        function runTests(callback) {
+            var um = new UnitManager();
+            testUnitManager(um);
+
+            // Flag synchronous completion
+            if (testFailures.length === 0) {
+                document.testPassed = true;
+            }
+            return callback;
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
