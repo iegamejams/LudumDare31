@@ -17,6 +17,26 @@ function TownManager() {
             configurable: false,
             writable: true
         },
+        manualFoodTechLevel: {
+            value: 1,
+            configurable: false,
+            writable: true
+        },
+        manualFoodperCkick: {
+            value: 1,
+            configurable: false,
+            writable: true
+        },
+        manualOreTechLevel: {
+            value: 1,
+            configurable: false,
+            writable: true
+        },
+        manualOreperCkick: {
+            value: 1,
+            configurable: false,
+            writable: true
+        },
         manualBuildTechLevel: {
             value: 1,
             configurable: false,
@@ -70,5 +90,23 @@ Object.defineProperties(TownManager.prototype, {
         },
         configurable: false,
         writable: false
-    }
+    },
+    manualFoodTechLevelChange: {
+        value: function (newLevel) {
+            this.manualFoodTechLevel = newLevel;
+            //For Each Level after 1, multiply by three.
+            this.manualFoodperCkick = Math.pow(3, (newLevel - 1));
+        },
+        configurable: false,
+        writable: false
+    },
+    manualOreTechLevelChange: {
+        value: function (newLevel) {
+            this.manualOreTechLevel = newLevel;
+            //For Each Level after 1, multiply by 2.
+            this.manualOreperCkick = Math.pow(2, (newLevel - 1));
+        },
+        configurable: false,
+        writable: false
+    },
 });

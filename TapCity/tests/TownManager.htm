@@ -98,12 +98,48 @@
             testCondition(townManager.manualBPperCkick, 16, "RunTestManualBuildTechLevelChange:Level3Test: The Manual Build Point Per Click should be set Correctly.");
         }
 
+        function RunTestManualFoodTechLevelChange(townManager) {
+            townManager.manualFoodTechLevelChange(1);
+
+            testCondition(townManager.manualFoodTechLevel, 1, "RunTestManualFoodTechLevelChange:BasicTest: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualFoodperCkick, 1, "RunTestManualFoodTechLevelChange:BasicTest: The Manual Food Per Click should be set Correctly.");
+
+            townManager.manualFoodTechLevelChange(2);
+
+            testCondition(townManager.manualFoodTechLevel, 2, "RunTestManualFoodTechLevelChange:Level2Test: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualFoodperCkick, 3, "RunTestManualFoodTechLevelChange:Level2Test: The Manual Food Per Click should be set Correctly.");
+
+            townManager.manualFoodTechLevelChange(3);
+
+            testCondition(townManager.manualFoodTechLevel, 3, "RunTestManualFoodTechLevelChange:Level3Test: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualFoodperCkick, 9, "RunTestManualFoodTechLevelChange:Level3Test: The Manual Food Per Click should be set Correctly.");
+        }
+
+        function RunTestManualOreTechLevelChange(townManager) {
+            townManager.manualOreTechLevelChange(1);
+
+            testCondition(townManager.manualOreTechLevel, 1, "RunTestManualOreTechLevelChange:BasicTest: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualOreperCkick, 1, "RunTestManualOreTechLevelChange:BasicTest: The Manual Ore Per Click should be set Correctly.");
+
+            townManager.manualOreTechLevelChange(2);
+
+            testCondition(townManager.manualOreTechLevel, 2, "RunTestManualOreTechLevelChange:Level2Test: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualOreperCkick, 2, "RunTestManualOreTechLevelChange:Level2Test: The Manual Ore Per Click should be set Correctly.");
+
+            townManager.manualOreTechLevelChange(3);
+
+            testCondition(townManager.manualOreTechLevel, 3, "RunTestManualOreTechLevelChange:Level3Test: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualOreperCkick, 4, "RunTestManualOreTechLevelChange:Level3Test: The Manual Ore Per Click should be set Correctly.");
+        }
+
         function runTests(callback) {
             try {
                 var townManager = new TownManager();
                 RunTestCheckLevelUp(townManager);
                 RunTestManualBuild(townManager);
                 RunTestManualBuildTechLevelChange(townManager);
+                RunTestManualFoodTechLevelChange(townManager);
+                RunTestManualOreTechLevelChange(townManager);
             }
             catch (err) {
                 document.testFailures = "Exception Caught: " + err.message;

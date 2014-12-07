@@ -56,12 +56,12 @@ Object.defineProperties(TapCityEngine.prototype, {
     },
     clickOre: {
         value: function clickOre() {
-            this.resources.addOre(1);
+            this.resources.addOre(this.town.manualOreperCkick);
         },
     },
     clickFood: {
         value: function clickFood() {
-            this.resources.addFood(1);
+            this.resources.addFood(this.town.manualFoodperCkick);
         }
     },
     clickTown: {
