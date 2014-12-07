@@ -2,6 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <script src="../js/Unit.js"></script>
+    <script src="../js/UnitList.js"></script>
+    <script src="../js/UnitManager.js"></script>
     <script src="../js/TownManager.js"></script>
     <script>
         "use strict";
@@ -31,50 +34,50 @@
             townManager.level = 1;
             townManager.currentBuildPoints = 0;
             townManager.buildPointsToNextLevel = 125;
-            townManager.maxUnits = 100;
+            townManager.unitManager.maxUnits = 100;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 0, "RunTestCheckLevelUp:Start: Build Points do not change if there is no levelup.");
             testCondition(townManager.level, 1, "RunTestCheckLevelUp:Start: Level does not change if there is not enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 125, "RunTestCheckLevelUp:Start: Build Points for the next level does not change if there is insufficient points");
-            testCondition(townManager.maxUnits, 100, "RunTestCheckLevelUp:Start: Max Units does not change if there is insufficient points");
+            testCondition(townManager.unitManager.maxUnits, 100, "RunTestCheckLevelUp:Start: Max Units does not change if there is insufficient points");
 
             townManager.level = 1;
             townManager.currentBuildPoints = 124;
             townManager.buildPointsToNextLevel = 125;
-            townManager.maxUnits = 100;
+            townManager.unitManager.maxUnits = 100;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 124, "RunTestCheckLevelUp:N-1: Build Points do not change if there is no levelup.");
             testCondition(townManager.level, 1, "RunTestCheckLevelUp:N-1: Level does not change if there is not enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 125, "RunTestCheckLevelUp:N-1: Build Points for the next level does not change if there is insufficient points");
-            testCondition(townManager.maxUnits, 100, "RunTestCheckLevelUp:N-1: Max Units does not change if there is insufficient points");
+            testCondition(townManager.unitManager.maxUnits, 100, "RunTestCheckLevelUp:N-1: Max Units does not change if there is insufficient points");
 
             townManager.level = 1;
             townManager.currentBuildPoints = 125;
             townManager.buildPointsToNextLevel = 125;
-            townManager.maxUnits = 100;
+            townManager.unitManager.maxUnits = 100;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 0, "RunTestCheckLevelUp:EqualsTest: Build Points do change if there is a level up.");
             testCondition(townManager.level, 2, "RunTestCheckLevelUp:EqualsTest: Level should change if there is enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 343, "RunTestCheckLevelUp:EqualsTest: Build Points for the next level changes if there is sufficient points");
-            testCondition(townManager.maxUnits, 144, "RunTestCheckLevelUp:EqualsTest: Max Units changes if there is sufficient points");
+            testCondition(townManager.unitManager.maxUnits, 144, "RunTestCheckLevelUp:EqualsTest: Max Units changes if there is sufficient points");
 
             townManager.level = 2;
             townManager.currentBuildPoints = 344;
             townManager.buildPointsToNextLevel = 343;
-            townManager.maxUnits = 144;
+            townManager.unitManager.maxUnits = 144;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 1, "RunTestCheckLevelUp:+1Test: Build Points do change if there is a level up.");
             testCondition(townManager.level, 3, "RunTestCheckLevelUp:+1Test: Level should change if there is enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 729, "RunTestCheckLevelUp:+1Test: Build Points for the next level changes if there is sufficient points");
-            testCondition(townManager.maxUnits, 196, "RunTestCheckLevelUp:+1Test: Max Units changes if there is sufficient points");
+            testCondition(townManager.unitManager.maxUnits, 196, "RunTestCheckLevelUp:+1Test: Max Units changes if there is sufficient points");
         }
 
         function RunTestManualBuildTechLevelChange(townManager)

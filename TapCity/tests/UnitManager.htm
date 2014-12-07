@@ -8,6 +8,13 @@
     <script>
         "use strict";
         var testFailures = [];
+        function testNotNull(value, message) {
+            if(value == null)
+            {
+                testFailures.push(message + ": Actual 'null' !== Expected 'value'");
+            }
+        }
+
         function testCondition(value, expected, message) {
             if (value !== expected) {
                 testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
@@ -36,6 +43,13 @@
 
         function testUnit(unit) {
             testInstanceOf(unit, Unit, "A unit in a unit list should be of type Unit.");
+            testNotNull(unit.name, "A Unit should always have a name field.");
+            testNotNull(unit.count, "A Unit should have a count that is not null.");
+
+            if (isNaN(unit.count)) {
+                testFailures.push("The Unit Count returns Not a Number!");
+            }
+
         }
 
         function runTests(callback) {
