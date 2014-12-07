@@ -75,6 +75,8 @@ Object.defineProperties(TapCityEngine.prototype, {
             this.resources.addOre(this.orePerSecond / this.ticksPerSecond);
             this.resources.addFood(this.foodPerSecond / this.ticksPerSecond);
 
+            this.town.checkLevelUp();
+
             var warriorEffectiveness = 1.0;
             var foodConsumed = -(this.foodConsumedPerSecond / this.ticksPerSecond);
             if (foodConsumed > this.resources.food) {

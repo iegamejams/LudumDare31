@@ -2,6 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Tap City</title>
+    <script src="js/Unit.js"></script>
+    <script src="js/UnitList.js"></script>
+    <script src="js/UnitManager.js"></script>
+    <script src="js/TownManager.js"></script>
+    <script src="js/MonsterManager.js"></script>
     <script src="js/ResourceManager.js"></script>
     <script src="js/TapCityEngine.js"></script>
 
@@ -12,6 +17,7 @@
         function initEngine() {
             document.getElementById("oreclick").addEventListener("click", ui_clickOre);
             document.getElementById("foodclick").addEventListener("click", ui_clickFood);
+            document.getElementById("townclick").addEventListener("click", ui_clickTown);
 
             ui_gameLoop();
         }
@@ -26,6 +32,11 @@
             engine.clickFood();
         }
 
+        function ui_clickTown(evt) {
+            // Sounds, UI
+            engine.clickTown();
+        }
+
         function ui_gameLoop() {
             // Advance the game loop
             engine.tick();
@@ -33,6 +44,7 @@
             // Update the UI
             document.getElementById("oreticker").innerText = engine.resources.ore;
             document.getElementById("foodticker").innerText = engine.resources.food;
+            document.getElementById("townProgress").innerText = "Town Level: " + engine.town.level +  ", " + engine.town.currentBuildPoints + "/" + engine.town.buildPointsToNextLevel + " Points for next level.";
 
             // 30 FPS
             window.setTimeout(ui_gameLoop, 1000 / 30);
@@ -47,5 +59,6 @@
     <div id="foodticker"></div>
 
     <img id="townclick" src="images/materials.svg" width="200" height="200">
+    <div id="townProgress"></div>
 </body>
 </html>
