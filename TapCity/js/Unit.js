@@ -16,4 +16,9 @@
 Unit.prototype = Object.create(Object.prototype);
 
 Object.defineProperties(Unit.prototype, {
+    printString: {
+        value: function printString() {
+            return this.name + ", Count: " + this.count;
+        }
+    }
 });

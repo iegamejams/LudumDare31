@@ -46,6 +46,9 @@
             document.getElementById("foodticker").innerText = engine.resources.food;
             document.getElementById("townProgress").innerText = "Town Level: " + engine.town.level +  ", " + engine.town.currentBuildPoints + "/" + engine.town.buildPointsToNextLevel + " Points for next level.";
 
+            document.getElementById("oreUnitTicker").innerText = engine.town.unitManager.miners.printString();
+            document.getElementById("foodUnitTicker").innerText = engine.town.unitManager.farmers.printString();
+
             // 30 FPS
             window.setTimeout(ui_gameLoop, 1000 / 30);
         }
@@ -54,9 +57,11 @@
 <body onload="initEngine();">
     <img id="oreclick" src="images/ore.svg" width="200" height="200">
     <div id="oreticker"></div>
+    <div id="oreUnitTicker"></div>
 
     <img id="foodclick" src="images/meat.svg" width="200" height="200">
     <div id="foodticker"></div>
+    <div id="foodUnitTicker"></div>
 
     <img id="townclick" src="images/materials.svg" width="200" height="200">
     <div id="townProgress"></div>

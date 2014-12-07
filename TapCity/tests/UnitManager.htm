@@ -38,6 +38,13 @@
             testInstanceOf(list, UnitList, "Unit lists should be of type UnitList.");
             testCondition(list.units.length, 4, "We should have initialized 4 unit levels.");
 
+            var item = list.printString();
+
+            if (typeof item != "string")
+            {
+                testFailures.push("UnitList.printString should return a string.");
+            }
+
             testUnit(list.units[0]);
         }
 
@@ -48,6 +55,10 @@
 
             if (isNaN(unit.count)) {
                 testFailures.push("The Unit Count returns Not a Number!");
+            }
+
+            if (typeof unit.printString() != "string") {
+                testFailures.push("Unit.printString should return a string.");
             }
 
         }

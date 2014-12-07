@@ -4,6 +4,19 @@
             value: [],
             configurable: false,
             writable: false
+        },
+        printString: {
+            value: function printString() {
+                var totalString = "";
+                for (var i = 0; i < this.units.length; i++) {
+                    if (i > 0) {
+                        totalString += ", ";
+                    }
+                    totalString += this.units[i].printString();
+                }
+
+                return totalString;
+            }
         }
     })
 }
@@ -20,5 +33,5 @@ Object.defineProperties(UnitList, {
             Object.seal(unitList);
             return unitList;
         }
-    }
+    },
 });
