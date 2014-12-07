@@ -16,7 +16,17 @@ function TownManager() {
             value: 125,
             configurable: false,
             writable: true
-        }
+        },
+        manualBuildTechLevel: {
+            value: 1,
+            configurable: false,
+            writable: true
+        },
+        manualBPperCkick: {
+        value: 1,
+        configurable: false,
+        writable: true
+    }
     });
 }
 
@@ -31,7 +41,7 @@ Object.defineProperties(TownManager.prototype, {
                 this.level++;
                 //Current Build Points required to next level is effectively on power series - 5^3, 7^3, 9^3, etc.  Revisit as needed.
                 var points = (this.level * 2) + 3;
-                this.buildPointsToNextLevel = points * points * points;
+                this.buildPointsToNextLevel = Math.pow(points, 3);
             }
         },
         configurable: false,
@@ -39,8 +49,16 @@ Object.defineProperties(TownManager.prototype, {
     },
     manualBuild: {
         value: function () {
-            //TODO: Implement Upgrades
-            this.currentBuildPoints += 1;
+            this.currentBuildPoints += this.manualBPperCkick;
+        },
+        configurable: false,
+        writable: false
+    },
+    manualBuildTechLevelChange: {
+        value: function(newLevel) {
+            this.manualBuildTechLevel = newLevel;
+            //For Each Level after 1, multiply by four.
+            this.manualBPperCkick = Math.pow(4, (newLevel - 1));
         },
         configurable: false,
         writable: false

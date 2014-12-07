@@ -18,7 +18,12 @@
         {
             townManager.currentBuildPoints = 0;
             townManager.manualBuild();
-            testCondition(townManager.currentBuildPoints, 1, "RunTestManualBuild:BasicTest: Build Points should increase by 1.");
+            testCondition(townManager.currentBuildPoints, townManager.manualBPperCkick, "RunTestManualBuild:BasicTest: Build Points should increase by The Manual Point Count.");
+
+            townManager.currentBuildPoints = 0;
+            townManager.manualBuildTechLevelChange(3);
+            townManager.manualBuild();
+            testCondition(townManager.currentBuildPoints, townManager.manualBPperCkick, "RunTestManualBuild:AdvLevelTest: Build Points should increase by The Manual Point Count.");
         }
 
         function RunTestCheckLevelUp(townManager)
@@ -64,11 +69,30 @@
             testCondition(townManager.buildPointsToNextLevel, 729, "RunTestCheckLevelUp:+1Test: Build Points for the next level changes if there is sufficient points");
         }
 
+        function RunTestManualBuildTechLevelChange(townManager)
+        {
+            townManager.manualBuildTechLevelChange(1);
+
+            testCondition(townManager.manualBuildTechLevel, 1, "RunTestManualBuildTechLevelChange:BasicTest: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualBPperCkick, 1, "RunTestManualBuildTechLevelChange:BasicTest: The Manual Build Point Per Click should be set Correctly.");
+
+            townManager.manualBuildTechLevelChange(2);
+
+            testCondition(townManager.manualBuildTechLevel, 2, "RunTestManualBuildTechLevelChange:Level2Test: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualBPperCkick, 4, "RunTestManualBuildTechLevelChange:Level2Test: The Manual Build Point Per Click should be set Correctly.");
+
+            townManager.manualBuildTechLevelChange(3);
+
+            testCondition(townManager.manualBuildTechLevel, 3, "RunTestManualBuildTechLevelChange:Level3Test: The Tech Level should be set Correctly.");
+            testCondition(townManager.manualBPperCkick, 16, "RunTestManualBuildTechLevelChange:Level3Test: The Manual Build Point Per Click should be set Correctly.");
+        }
+
         function runTests(callback) {
             try {
                 var townManager = new TownManager();
                 RunTestCheckLevelUp(townManager);
                 RunTestManualBuild(townManager);
+                RunTestManualBuildTechLevelChange(townManager);
             }
             catch (err) {
                 document.testFailures = "Exception Caught: " + err.message;
