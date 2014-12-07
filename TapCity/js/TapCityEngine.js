@@ -31,6 +31,16 @@ function TapCityEngine() {
             value: 0,
             configurable: false,
             writable: true
+        },
+        'monsterManager': {
+            value: new MonsterManager(),
+            configurable: false,
+            writable: false
+        },
+        'town': {
+            value: new TownManager(),
+            configurable: false,
+            writable: false
         }
     });
 }
@@ -56,11 +66,7 @@ Object.defineProperties(TapCityEngine.prototype, {
     },
     clickTown: {
         value: function clickTown() {
-            /* TODO: Clicking the town applies build points to the current level */
-            /*
-            this.town <-- Contains the upgrades for it.
             this.town.manualBuild();
-            */
         }
     },
     tick: {
@@ -76,6 +82,8 @@ Object.defineProperties(TapCityEngine.prototype, {
                 warriorEffectiveness = 0.5;
             }
             this.resources.addFood(foodConsumed);
+
+            this.monsterManager.update(this.town.level, this.getElapsedTime());
 
             /* TODO: Grab the monster and apply warrior damage, using warriorEffectiveness */
         }

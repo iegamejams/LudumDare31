@@ -81,6 +81,7 @@
     <Content Include="images\ore.svg" />
     <Content Include="js\TapCityEngine.js" />
     <Content Include="js\ResourceManager.js" />
+    <Content Include="js\TownManager.js" />
     <Content Include="js\Unit.js" />
     <Content Include="js\UnitList.js" />
     <Content Include="js\UnitManager.js" />
@@ -88,6 +89,7 @@
     <Content Include="tests\MonsterManager.htm" />
     <Content Include="tests\ResourceManager.htm" />
     <Content Include="tests\TapCityEngine.htm" />
+    <Content Include="tests\TownManager.htm" />
     <Content Include="tests\UnitManager.htm" />
     <Content Include="Web.config" />
   </ItemGroup>

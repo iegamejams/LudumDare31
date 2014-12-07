@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../js/TownManager.js"></script>
+    <script>
+        "use strict";
+
+        var testFailures = [];
+
+        function testCondition(value, expected, message) {
+            if (value !== expected) {
+                testFailures.push(message + ": Actual " + value + " !== Expected " + expected);
+            }
+        }
+
+        function RunTestManualBuild(townManager)
+        {
+            townManager.currentBuildPoints = 0;
+            townManager.manualBuild();
+            testCondition(townManager.currentBuildPoints, 1, "RunTestManualBuild:BasicTest: Build Points should increase by 1.");
+        }
+
+        function RunTestCheckLevelUp(townManager)
+        {
+            townManager.level = 1;
+            townManager.currentBuildPoints = 0;
+            townManager.buildPointsToNextLevel = 125;
+
+            townManager.checkLevelUp();
+
+            testCondition(townManager.currentBuildPoints, 0, "RunTestCheckLevelUp:Start: Build Points do not change if there is no levelup.");
+            testCondition(townManager.level, 1, "RunTestCheckLevelUp:Start: Level does not change if there is not enough Build Points.");
+            testCondition(townManager.buildPointsToNextLevel, 125, "RunTestCheckLevelUp:Start: Build Points for the next level does not change if there is insufficient points");
+
+            townManager.level = 1;
+            townManager.currentBuildPoints = 124;
+            townManager.buildPointsToNextLevel = 125;
+
+            townManager.checkLevelUp();
+
+            testCondition(townManager.currentBuildPoints, 124, "RunTestCheckLevelUp:N-1: Build Points do not change if there is no levelup.");
+            testCondition(townManager.level, 1, "RunTestCheckLevelUp:N-1: Level does not change if there is not enough Build Points.");
+            testCondition(townManager.buildPointsToNextLevel, 125, "RunTestCheckLevelUp:N-1: Build Points for the next level does not change if there is insufficient points");
+
+            townManager.level = 1;
+            townManager.currentBuildPoints = 125;
+            townManager.buildPointsToNextLevel = 125;
+
+            townManager.checkLevelUp();
+
+            testCondition(townManager.currentBuildPoints, 0, "RunTestCheckLevelUp:EqualsTest: Build Points do change if there is a level up.");
+            testCondition(townManager.level, 2, "RunTestCheckLevelUp:EqualsTest: Level should change if there is enough Build Points.");
+            testCondition(townManager.buildPointsToNextLevel, 343, "RunTestCheckLevelUp:EqualsTest: Build Points for the next level changes if there is sufficient points");
+
+            townManager.level = 2;
+            townManager.currentBuildPoints = 344;
+            townManager.buildPointsToNextLevel = 343;
+
+            townManager.checkLevelUp();
+
+            testCondition(townManager.currentBuildPoints, 1, "RunTestCheckLevelUp:+1Test: Build Points do change if there is a level up.");
+            testCondition(townManager.level, 3, "RunTestCheckLevelUp:+1Test: Level should change if there is enough Build Points.");
+            testCondition(townManager.buildPointsToNextLevel, 729, "RunTestCheckLevelUp:+1Test: Build Points for the next level changes if there is sufficient points");
+        }
+
+        function runTests(callback) {
+            try {
+                var townManager = new TownManager();
+                RunTestCheckLevelUp(townManager);
+                RunTestManualBuild(townManager);
+            }
+            catch (err) {
+                document.testFailures = "Exception Caught: " + err.message;
+                document.testPassed = false;
+                return callback;
+            }
+
+            if (testFailures.length === 0) {
+                document.testPassed = true;
+            }
+
+            return callback;
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
