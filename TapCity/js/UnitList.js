@@ -17,6 +17,18 @@
 
                 return totalString;
             }
+        },
+        computeXperSecond: {
+            value: function () {
+                var totalValue = 0;
+                for (var i = 0; i < this.units.length; i++) {
+                    if (this.units[i].count > 0)
+                    {
+                        totalValue += this.units[i].count * Math.pow(2, i);
+                    }
+                }
+                return totalValue;
+            }
         }
     })
 }

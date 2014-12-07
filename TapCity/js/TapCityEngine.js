@@ -41,7 +41,12 @@ function TapCityEngine() {
             value: new TownManager(),
             configurable: false,
             writable: false
-        }
+        },
+        'currentUnitCache': {
+            value: -1,
+            configurable: false,
+            writable: true
+    }
     });
 }
 
@@ -71,9 +76,17 @@ Object.defineProperties(TapCityEngine.prototype, {
     },
     tick: {
         value: function tick() {
-            /* TODO: If units/upgrades have changed recompute orePerSecond/foodPerSecond */
+            if (this.currentUnitCache != this.town.unitManager.currentUnit)
+            {
+                this.orePerSecond = this.town.unitManager.miners.computeXperSecond();
+                this.foodPerSecond = this.town.unitManager.farmers.computeXperSecond();
+                this.town.buildPointPerSecond = Math.floor(((this.town.unitManager.maxUnit - this.town.unitManager.currentUnit) / 100));
+                this.currentUnitCache = this.town.unitManager.currentUnit;
+            }
+
             this.resources.addOre(this.orePerSecond / this.ticksPerSecond);
             this.resources.addFood(this.foodPerSecond / this.ticksPerSecond);
+            this.town.currentBuildPoints += (this.town.buildPointPerSecond / this.ticksPerSecond);
 
             this.town.checkLevelUp();
 

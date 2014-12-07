@@ -21,12 +21,12 @@
         {
             townManager.currentBuildPoints = 0;
             townManager.manualBuild();
-            testCondition(townManager.currentBuildPoints, townManager.manualBPperCkick, "RunTestManualBuild:BasicTest: Build Points should increase by The Manual Point Count.");
+            testCondition(townManager.currentBuildPoints, townManager.manualBPperClick, "RunTestManualBuild:BasicTest: Build Points should increase by The Manual Point Count.");
 
             townManager.currentBuildPoints = 0;
             townManager.manualBuildTechLevelChange(3);
             townManager.manualBuild();
-            testCondition(townManager.currentBuildPoints, townManager.manualBPperCkick, "RunTestManualBuild:AdvLevelTest: Build Points should increase by The Manual Point Count.");
+            testCondition(townManager.currentBuildPoints, townManager.manualBPperClick, "RunTestManualBuild:AdvLevelTest: Build Points should increase by The Manual Point Count.");
         }
 
         function RunTestCheckLevelUp(townManager)
@@ -34,50 +34,50 @@
             townManager.level = 1;
             townManager.currentBuildPoints = 0;
             townManager.buildPointsToNextLevel = 125;
-            townManager.unitManager.maxUnits = 100;
+            townManager.unitManager.maxUnit = 100;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 0, "RunTestCheckLevelUp:Start: Build Points do not change if there is no levelup.");
             testCondition(townManager.level, 1, "RunTestCheckLevelUp:Start: Level does not change if there is not enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 125, "RunTestCheckLevelUp:Start: Build Points for the next level does not change if there is insufficient points");
-            testCondition(townManager.unitManager.maxUnits, 100, "RunTestCheckLevelUp:Start: Max Units does not change if there is insufficient points");
+            testCondition(townManager.unitManager.maxUnit, 100, "RunTestCheckLevelUp:Start: Max Units does not change if there is insufficient points");
 
             townManager.level = 1;
             townManager.currentBuildPoints = 124;
             townManager.buildPointsToNextLevel = 125;
-            townManager.unitManager.maxUnits = 100;
+            townManager.unitManager.maxUnit = 100;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 124, "RunTestCheckLevelUp:N-1: Build Points do not change if there is no levelup.");
             testCondition(townManager.level, 1, "RunTestCheckLevelUp:N-1: Level does not change if there is not enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 125, "RunTestCheckLevelUp:N-1: Build Points for the next level does not change if there is insufficient points");
-            testCondition(townManager.unitManager.maxUnits, 100, "RunTestCheckLevelUp:N-1: Max Units does not change if there is insufficient points");
+            testCondition(townManager.unitManager.maxUnit, 100, "RunTestCheckLevelUp:N-1: Max Units does not change if there is insufficient points");
 
             townManager.level = 1;
             townManager.currentBuildPoints = 125;
             townManager.buildPointsToNextLevel = 125;
-            townManager.unitManager.maxUnits = 100;
+            townManager.unitManager.maxUnit = 100;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 0, "RunTestCheckLevelUp:EqualsTest: Build Points do change if there is a level up.");
             testCondition(townManager.level, 2, "RunTestCheckLevelUp:EqualsTest: Level should change if there is enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 343, "RunTestCheckLevelUp:EqualsTest: Build Points for the next level changes if there is sufficient points");
-            testCondition(townManager.unitManager.maxUnits, 144, "RunTestCheckLevelUp:EqualsTest: Max Units changes if there is sufficient points");
+            testCondition(townManager.unitManager.maxUnit, 144, "RunTestCheckLevelUp:EqualsTest: Max Units changes if there is sufficient points");
 
             townManager.level = 2;
             townManager.currentBuildPoints = 344;
             townManager.buildPointsToNextLevel = 343;
-            townManager.unitManager.maxUnits = 144;
+            townManager.unitManager.maxUnit = 144;
 
             townManager.checkLevelUp();
 
             testCondition(townManager.currentBuildPoints, 1, "RunTestCheckLevelUp:+1Test: Build Points do change if there is a level up.");
             testCondition(townManager.level, 3, "RunTestCheckLevelUp:+1Test: Level should change if there is enough Build Points.");
             testCondition(townManager.buildPointsToNextLevel, 729, "RunTestCheckLevelUp:+1Test: Build Points for the next level changes if there is sufficient points");
-            testCondition(townManager.unitManager.maxUnits, 196, "RunTestCheckLevelUp:+1Test: Max Units changes if there is sufficient points");
+            testCondition(townManager.unitManager.maxUnit, 196, "RunTestCheckLevelUp:+1Test: Max Units changes if there is sufficient points");
         }
 
         function RunTestManualBuildTechLevelChange(townManager)
@@ -85,17 +85,17 @@
             townManager.manualBuildTechLevelChange(1);
 
             testCondition(townManager.manualBuildTechLevel, 1, "RunTestManualBuildTechLevelChange:BasicTest: The Tech Level should be set Correctly.");
-            testCondition(townManager.manualBPperCkick, 1, "RunTestManualBuildTechLevelChange:BasicTest: The Manual Build Point Per Click should be set Correctly.");
+            testCondition(townManager.manualBPperClick, 1, "RunTestManualBuildTechLevelChange:BasicTest: The Manual Build Point Per Click should be set Correctly.");
 
             townManager.manualBuildTechLevelChange(2);
 
             testCondition(townManager.manualBuildTechLevel, 2, "RunTestManualBuildTechLevelChange:Level2Test: The Tech Level should be set Correctly.");
-            testCondition(townManager.manualBPperCkick, 4, "RunTestManualBuildTechLevelChange:Level2Test: The Manual Build Point Per Click should be set Correctly.");
+            testCondition(townManager.manualBPperClick, 4, "RunTestManualBuildTechLevelChange:Level2Test: The Manual Build Point Per Click should be set Correctly.");
 
             townManager.manualBuildTechLevelChange(3);
 
             testCondition(townManager.manualBuildTechLevel, 3, "RunTestManualBuildTechLevelChange:Level3Test: The Tech Level should be set Correctly.");
-            testCondition(townManager.manualBPperCkick, 16, "RunTestManualBuildTechLevelChange:Level3Test: The Manual Build Point Per Click should be set Correctly.");
+            testCondition(townManager.manualBPperClick, 16, "RunTestManualBuildTechLevelChange:Level3Test: The Manual Build Point Per Click should be set Correctly.");
         }
 
         function RunTestManualFoodTechLevelChange(townManager) {

@@ -29,6 +29,21 @@
         function testUnitManager(manager) {
             testInstanceOf(manager, UnitManager, "The manager should be a UnitManager");
 
+            manager.maxUnit = 2;
+            manager.currentUnit = 0;
+
+            manager.buyUnit(0, 1, manager.farmers);
+            testCondition(manager.farmers.units[0].count, 1, "The farmer should have been bought.");
+
+            manager.buyUnit(0, 2, manager.miners);
+            testCondition(manager.miners.units[0].count, 0, "The miners should have not been bought.");
+
+            manager.buyUnit(0, 1, manager.miners);
+            testCondition(manager.miners.units[0].count, 1, "The miners should have been bought.");
+
+            manager.buyUnit(0, 1, manager.miners);
+            testCondition(manager.miners.units[0].count, 1, "The miners should have not been bought due to max Unit and Current Unit being the same.");
+
             testUnitList(manager.farmers);
             testUnitList(manager.warriors);
             testUnitList(manager.miners);
@@ -44,6 +59,12 @@
             {
                 testFailures.push("UnitList.printString should return a string.");
             }
+
+            list.units[0].count = 3;
+            list.units[1].count = 1;
+
+            var computePerSec = list.computeXperSecond();
+            testCondition(computePerSec, 5, "We should be adding 5 things per second.")
 
             testUnit(list.units[0]);
         }

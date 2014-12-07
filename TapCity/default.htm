@@ -19,6 +19,9 @@
             document.getElementById("foodclick").addEventListener("click", ui_clickFood);
             document.getElementById("townclick").addEventListener("click", ui_clickTown);
 
+            document.getElementById("foodUnitBuy").addEventListener("click", ui_clickfoodUnitBuy);
+            document.getElementById("oreUnitBuy").addEventListener("click", ui_clickoreUnitBuy);
+
             ui_gameLoop();
         }
 
@@ -37,14 +40,24 @@
             engine.clickTown();
         }
 
+        function ui_clickfoodUnitBuy(evt) {
+            // Sounds, UI
+            engine.town.unitManager.buyUnit(0, 1, engine.town.unitManager.farmers);
+        }
+
+        function ui_clickoreUnitBuy(evt) {
+            // Sounds, UI
+            engine.town.unitManager.buyUnit(0, 1, engine.town.unitManager.miners);
+        }
+
         function ui_gameLoop() {
             // Advance the game loop
             engine.tick();
 
             // Update the UI
-            document.getElementById("oreticker").innerText = engine.resources.ore;
-            document.getElementById("foodticker").innerText = engine.resources.food;
-            document.getElementById("townProgress").innerText = "Town Level: " + engine.town.level +  ", " + engine.town.currentBuildPoints + "/" + engine.town.buildPointsToNextLevel + " Points for next level.";
+            document.getElementById("oreticker").innerText = Math.floor(engine.resources.ore);
+            document.getElementById("foodticker").innerText = Math.floor(engine.resources.food);
+            document.getElementById("townProgress").innerText = engine.town.printString();
 
             document.getElementById("oreUnitTicker").innerText = engine.town.unitManager.miners.printString();
             document.getElementById("foodUnitTicker").innerText = engine.town.unitManager.farmers.printString();
@@ -56,10 +69,12 @@
 </head>
 <body onload="initEngine();">
     <img id="oreclick" src="images/ore.svg" width="200" height="200">
+    <button id="oreUnitBuy">Allocate Miner</button>
     <div id="oreticker"></div>
     <div id="oreUnitTicker"></div>
 
     <img id="foodclick" src="images/meat.svg" width="200" height="200">
+    <button id="foodUnitBuy">Allocate Farmer</button>
     <div id="foodticker"></div>
     <div id="foodUnitTicker"></div>
 

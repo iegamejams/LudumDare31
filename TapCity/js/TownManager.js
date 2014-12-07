@@ -42,8 +42,13 @@ function TownManager() {
             configurable: false,
             writable: true
         },
-        manualBPperCkick: {
+        manualBPperClick: {
             value: 1,
+            configurable: false,
+            writable: true
+        },
+        buildPointPerSecond: {
+            value: 0,
             configurable: false,
             writable: true
         },
@@ -54,7 +59,7 @@ function TownManager() {
         }
     });
 
-    this.unitManager.maxUnits = 100;
+    this.unitManager.maxUnit = 100;
 }
 
 TownManager.prototype = Object.create(Object.prototype);
@@ -69,7 +74,7 @@ Object.defineProperties(TownManager.prototype, {
                 var points = (this.level * 2) + 3;
                 this.buildPointsToNextLevel = Math.pow(points, 3);
                 var unitCount = (this.level * 2) + 8;
-                this.unitManager.maxUnits = Math.pow(unitCount, 2);
+                this.unitManager.maxUnit = Math.pow(unitCount, 2);
             }
         },
         configurable: false,
@@ -77,7 +82,7 @@ Object.defineProperties(TownManager.prototype, {
     },
     manualBuild: {
         value: function () {
-            this.currentBuildPoints += this.manualBPperCkick;
+            this.currentBuildPoints += this.manualBPperClick;
         },
         configurable: false,
         writable: false
@@ -86,7 +91,7 @@ Object.defineProperties(TownManager.prototype, {
         value: function (newLevel) {
             this.manualBuildTechLevel = newLevel;
             //For Each Level after 1, multiply by four.
-            this.manualBPperCkick = Math.pow(4, (newLevel - 1));
+            this.manualBPperClick = Math.pow(4, (newLevel - 1));
         },
         configurable: false,
         writable: false
@@ -109,4 +114,9 @@ Object.defineProperties(TownManager.prototype, {
         configurable: false,
         writable: false
     },
+    printString: {
+        value: function () {
+            return "Town Level: " + this.level + ", " + Math.floor(this.currentBuildPoints) + "/" + this.buildPointsToNextLevel + " Points for next level. " + this.unitManager.currentUnit + "/" + this.unitManager.maxUnit + " Units in play.";
+        }
+    }
 });
