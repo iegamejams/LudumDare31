@@ -7,6 +7,11 @@ function TownManager() {
             configurable: false,
             writable: true
         },
+        maxUnits: {
+            value: 100,
+            configurable: false,
+            writable: true
+        },
         currentBuildPoints: {
             value: 0,
             configurable: false,
@@ -42,6 +47,8 @@ Object.defineProperties(TownManager.prototype, {
                 //Current Build Points required to next level is effectively on power series - 5^3, 7^3, 9^3, etc.  Revisit as needed.
                 var points = (this.level * 2) + 3;
                 this.buildPointsToNextLevel = Math.pow(points, 3);
+                var unitCount = (this.level * 2) + 8;
+                this.maxUnits = Math.pow(unitCount, 2);
             }
         },
         configurable: false,
